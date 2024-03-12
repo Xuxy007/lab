@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #define  INITIAL_CAPACITY 10
-//子问题3
+//子问题4
 
 Vector *vector_create(void) {
     Vector *vector = (Vector *)malloc(sizeof(Vector));
@@ -81,6 +81,15 @@ void vector_free(Vector *vector) {
     // 释放向量本身的内存空间
     free(vector);
 }
+
+void another_vector_free(Vector **vector) {
+    if (*vector != NULL) {
+        free((*vector)->data);  // 释放存储元素的数组空间
+        free(*vector);          // 释放向量本身的内存空间
+        *vector = NULL;         // 在释放后将指针设置为 NULL
+    }
+}
+
 
 // vector.c
 
