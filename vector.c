@@ -48,7 +48,7 @@ void vector_push(Vector *vector, double element) {
     vector->data[vector->size++] = element;
 }
 
-double vector_get(Vector *vector, int index) {
+double vector_get(const Vector *vector, int index) {
     // 检查向量指针是否有效
     if (vector == NULL) {
         fprintf(stderr, "无效的向量指针\n");
@@ -61,13 +61,10 @@ double vector_get(Vector *vector, int index) {
         exit(EXIT_FAILURE);
     }
 
-    // 如果访问的位置未初始化，则返回特殊值 NAN
-    if (index >= vector->size) {
-        return NAN;
-    }
-
+    // 返回索引处的元素
     return vector->data[index];
 }
+
 
 void vector_free(Vector *vector) {
     // 检查向量指针是否有效
