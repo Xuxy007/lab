@@ -3,7 +3,8 @@
 #include <stdio.h>
 
 #define  INITIAL_CAPACITY 10
-//子问题1
+//子问题2
+
 Vector *vector_create(void) {
     Vector *vector = (Vector *)malloc(sizeof(Vector));
     if (vector == NULL) {
@@ -14,7 +15,7 @@ Vector *vector_create(void) {
     vector->data = (double *)malloc(INITIAL_CAPACITY * sizeof(double));
     if (vector->data == NULL) {
         fprintf(stderr, "内存分配失败\n");
-        free(vector); // 释放先前分配的内存
+        free(vector); // 释放之前分配的内存
         exit(EXIT_FAILURE);
     }
 
@@ -25,6 +26,12 @@ Vector *vector_create(void) {
 }
 
 void vector_push(Vector *vector, double element) {
+    // 检查向量指针是否有效
+    if (vector == NULL) {
+        fprintf(stderr, "无效的向量指针\n");
+        exit(EXIT_FAILURE);
+    }
+
     // 如果向量已满，则增加其容量
     if (vector->size >= vector->capacity) {
         int new_capacity = vector->capacity * 2;
@@ -42,9 +49,15 @@ void vector_push(Vector *vector, double element) {
 }
 
 double vector_get(Vector *vector, int index) {
+    // 检查向量指针是否有效
+    if (vector == NULL) {
+        fprintf(stderr, "无效的向量指针\n");
+        exit(EXIT_FAILURE);
+    }
+
     // 检查索引是否有效
     if (index < 0 || index >= vector->size) {
-        fprintf(stderr, "索引超出范围\n");
+        fprintf(stderr, "索引越界\n");
         exit(EXIT_FAILURE);
     }
 
@@ -52,9 +65,15 @@ double vector_get(Vector *vector, int index) {
 }
 
 void vector_free(Vector *vector) {
-    // 释放存储元素的数组
+    // 检查向量指针是否有效
+    if (vector == NULL) {
+        fprintf(stderr, "无效的向量指针\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // 释放存储元素的数组空间
     free(vector->data);
-    // 释放向量本身分配的内存
+    // 释放向量本身的内存空间
     free(vector);
 }
 
