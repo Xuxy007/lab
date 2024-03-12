@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #define  INITIAL_CAPACITY 10
-//子问题2
+//子问题3
 
 Vector *vector_create(void) {
     Vector *vector = (Vector *)malloc(sizeof(Vector));
@@ -59,6 +59,11 @@ double vector_get(Vector *vector, int index) {
     if (index < 0 || index >= vector->size) {
         fprintf(stderr, "索引越界\n");
         exit(EXIT_FAILURE);
+    }
+
+    // 如果访问的位置未初始化，则返回特殊值 NAN
+    if (index >= vector->size) {
+        return NAN;
     }
 
     return vector->data[index];
